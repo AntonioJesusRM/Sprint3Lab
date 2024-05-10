@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Sprint3Lab</string>
+    <string name="MainActivity_title">Pelicules Populares</string>
+    <string name="rv_movie_poster_movie">Poster de la película</string>
 </resources>
