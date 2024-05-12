@@ -2,13 +2,11 @@ package com.example.sprint3lab.data.model
 
 import com.google.gson.annotations.SerializedName
 
-data class MoviesModel(
-    @SerializedName("id")
-    var id: String,
+data class DetailsModel(
     @SerializedName("title")
     var title: String,
     @SerializedName("poster_path")
     var poster: String,
-    @SerializedName("vote_average")
-    var note: String
+    @SerializedName("overview")
+    var overview: String,
 )

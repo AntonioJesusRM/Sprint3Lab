@@ -16,7 +16,7 @@
         android:theme="@style/Theme.Sprint3Lab"
         tools:targetApi="31">
         <activity
-            android:name=".ui.movie.DetailsMovie"
+            android:name=".ui.movie.DetailsMovieActivity"
             android:exported="false" />
         <activity
             android:name=".ui.main.MainActivity"

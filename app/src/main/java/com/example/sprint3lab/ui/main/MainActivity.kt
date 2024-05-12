@@ -1,7 +1,7 @@
 package com.example.sprint3lab.ui.main
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.sprint3lab.R
 import com.example.sprint3lab.databinding.ActivityMainBinding
+import com.example.sprint3lab.ui.movie.DetailsMovieActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -30,6 +31,8 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        startActivity(intent)
         setupRecyclerView()
         observerViewModel()
         mainViewModel.getListMovies()
@@ -58,8 +61,10 @@ class MainActivity : AppCompatActivity() {
     private fun setupRecyclerView() {
         val layoutManager = GridLayoutManager(this, 3)
         binding.rvListMovies.layoutManager = layoutManager
-        adapterMain = MainAdapter(this, arrayListOf()) {
-            Log.d("%>", it)
+        adapterMain = MainAdapter(this, arrayListOf()) { id ->
+            val intent = Intent(this, DetailsMovieActivity::class.java)
+            intent.putExtra("idMovie", id)
+            startActivity(intent)
         }
         binding.rvListMovies.adapter = adapterMain
     }

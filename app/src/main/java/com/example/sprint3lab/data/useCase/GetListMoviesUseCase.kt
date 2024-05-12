@@ -1,6 +1,8 @@
-package com.example.sprint3lab.data.retrofit
+package com.example.sprint3lab.data.useCase
 
 import com.example.sprint3lab.data.Constant
+import com.example.sprint3lab.data.retrofit.MoviesResponse
+import com.example.sprint3lab.data.retrofit.RetrofitClient
 import retrofit2.Call
 import javax.inject.Inject
 

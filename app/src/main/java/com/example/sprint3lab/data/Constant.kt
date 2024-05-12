@@ -7,4 +7,6 @@ object Constant {
 
     const val IMG_WIDTH = 330
     const val IMG_HEIGHT = 330
+    const val IMG_WIDTH_DETAILS = 700
+    const val IMG_HEIGHT_DETAILS = 700
 }
