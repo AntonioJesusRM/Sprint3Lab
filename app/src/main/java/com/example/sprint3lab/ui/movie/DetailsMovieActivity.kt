@@ -8,10 +8,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.sprint3lab.R
 import com.example.sprint3lab.data.Constant
+import com.example.sprint3lab.data.model.GenresModel
 import com.example.sprint3lab.databinding.ActivityDetailsMovieBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -20,6 +22,7 @@ import kotlinx.coroutines.launch
 class DetailsMovieActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailsMovieBinding
     private val detailsViewModel: DetailsViewModel by viewModels()
+    private lateinit var detailsAdapter: DetailsAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -55,6 +58,7 @@ class DetailsMovieActivity : AppCompatActivity() {
                     .into(binding.ivPosterDetails)
                 binding.tvTitle.text = dataSet?.title
                 binding.tvOverview.text = dataSet?.overview
+                setupRecyclerView(dataSet?.genres)
             }
         }
     }
@@ -64,5 +68,12 @@ class DetailsMovieActivity : AppCompatActivity() {
             binding.pbLoadingDetails.visibility = View.VISIBLE
         else
             binding.pbLoadingDetails.visibility = View.GONE
+    }
+
+    private fun setupRecyclerView(listGenres: List<GenresModel>?) {
+        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        binding.rvListGenres.layoutManager = layoutManager
+        detailsAdapter = DetailsAdapter(listGenres)
+        binding.rvListGenres.adapter = detailsAdapter
     }
 }

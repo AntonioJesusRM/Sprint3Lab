@@ -9,4 +9,6 @@ data class DetailsModel(
     var poster: String,
     @SerializedName("overview")
     var overview: String,
+    @SerializedName("genres")
+    var genres: List<GenresModel>
 )

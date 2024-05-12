@@ -17,8 +17,7 @@ class MainAdapter(
     private val context: Context,
     private var listMovies: List<MoviesModel>,
     var clickAction: (String) -> Unit
-) :
-    RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
+) : RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
     inner class MainViewHolder(v: View) : RecyclerView.ViewHolder(v) {
         val tvTitle: TextView = v.findViewById(R.id.tvTitleMovie)
         val ivPoster: ImageView = v.findViewById(R.id.ivPoster)
