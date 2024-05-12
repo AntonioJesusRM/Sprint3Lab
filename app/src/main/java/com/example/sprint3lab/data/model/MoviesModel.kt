@@ -8,7 +8,5 @@ data class MoviesModel(
     @SerializedName("title")
     var title: String,
     @SerializedName("poster_path")
-    var poster: String,
-    @SerializedName("vote_average")
-    var note: String
+    var poster: String
 )
