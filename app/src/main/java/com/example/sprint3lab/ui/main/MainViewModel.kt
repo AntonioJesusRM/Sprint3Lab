@@ -8,6 +8,7 @@ import com.example.sprint3lab.data.useCase.GetListMoviesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -27,10 +28,10 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch(dispatcherIO) {
             loadingMutableSharedFlow.emit(true)
             try {
+                delay(500)
                 val response = getListMoviesUseCase(page).execute()
                 if (response.isSuccessful) {
                     loadingMutableSharedFlow.emit(false)
-                    Log.d("%>", "Results: ${response.body()?.result?.size}")
                     moviesListMutable.value = response.body()?.result ?: emptyList()
                 } else {
                     Log.d("%>", "Error: ${response.code()}")
@@ -42,4 +43,17 @@ class MainViewModel @Inject constructor(
             }
         }
     }
+
+    fun getLastPage() {
+        if (page > 1) {
+            page--
+            getListMovies()
+        }
+    }
+
+    fun getNextPage() {
+        page++
+        getListMovies()
+    }
+
 }

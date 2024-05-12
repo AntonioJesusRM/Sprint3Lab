@@ -10,6 +10,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.sprint3lab.R
 import com.example.sprint3lab.databinding.ActivityMainBinding
 import com.example.sprint3lab.ui.movie.DetailsMovieActivity
@@ -31,11 +32,23 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
         startActivity(intent)
         setupRecyclerView()
         observerViewModel()
+        scrollRecyclerView()
         mainViewModel.getListMovies()
+    }
+
+    private fun scrollRecyclerView() {
+        binding.rvListMovies.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (!recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE)
+                    mainViewModel.getNextPage()
+                if (!recyclerView.canScrollVertically(-1) && newState == RecyclerView.SCROLL_STATE_IDLE)
+                    mainViewModel.getLastPage()
+            }
+        })
     }
 
     private fun observerViewModel() {
@@ -68,4 +81,5 @@ class MainActivity : AppCompatActivity() {
         }
         binding.rvListMovies.adapter = adapterMain
     }
+
 }
