@@ -4,15 +4,17 @@ import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
 import javax.net.ssl.HostnameVerifier
 
-class RetrofitClient {
+class RetrofitClient @Inject constructor() {
     companion object {
         const val URL = "https://api.themoviedb.org/3/movie/"
         const val SHA256_THEMOVIEDB = "sha256/5VLcahb6x4EvvFrCF2TePZulWqrLHS2jCg9Ywv6JHog="
     }
 
-    val retrofit: Retrofit
+    private val retrofit: Retrofit
+    val moviesApiService: MoviesApiService
 
     init {
         val hppClient: OkHttpClient.Builder = OkHttpClient.Builder()
@@ -36,9 +38,6 @@ class RetrofitClient {
             .client(hppClient.build())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-    }
-
-    fun getService(): MoviesApiService {
-        return retrofit.create(MoviesApiService::class.java)
+        moviesApiService = retrofit.create(MoviesApiService::class.java)
     }
 }
